@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login & Signup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+    :root {
+      --color-primary: #7380ec;
+      --color-danger: #ff7782;
+      --color-success: #41f1b6;
+      --color-warning: #ffbb55;
+      --color-white: #fff;
+      --color-info: #7d8da1;
+      --color-dark: #363949;
+      --color-light: rgba(132, 139, 200, 0.18);
+      --color-dark-varient: #677483;
+      --color-background: #f6f6f9;
+
+      --card-border-radius: 2rem;
+      --border-radius-1: 0.4rem;
+      --border-radius-2: 1.2rem;
+
+      --card-padding: 1.8rem;
+      --box-shadow: 0 2rem 3rem var(--color-light);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: var(--color-background);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: var(--color-dark);
+    }
+
+    .auth-container {
+      background: var(--color-white);
+      padding: 2rem 2.5rem;
+      border-radius: var(--card-border-radius);
+      box-shadow: var(--box-shadow);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .auth-container h1 {
+      text-align: center;
+      color: var(--color-primary);
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .auth-container form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .auth-container input {
+      padding: 0.8rem 1rem;
+      margin: 0.6rem 0;
+      border-radius: var(--border-radius-1);
+      border: 1px solid var(--color-light);
+      outline: none;
+      font-size: 0.95rem;
+      transition: 0.3s ease;
+    }
+
+    .auth-container input:focus {
+      border: 1px solid var(--color-primary);
+    }
+
+    .auth-container button {
+      background: var(--color-primary);
+      color: var(--color-white);
+      border: none;
+      padding: 0.9rem;
+      border-radius: var(--border-radius-2);
+      margin-top: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .auth-container button:hover {
+      background: #5a6ce0;
+    }
+
+    .switch-link {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--color-info);
+    }
+
+    .switch-link a {
+      color: var(--color-primary);
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .tab {
+      display: none;
+    }
+
+    .tab.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-container">
+    <div id="loginTab" class="tab active">
+      <h1>Login</h1>
+      <form id="loginForm">
+        <input type="text" id="loginUsername" placeholder="Username" required>
+        <input type="password" id="loginPassword" placeholder="Password" required>
+        <button type="submit">Login</button>
+      </form>
+      <div class="switch-link">
+        Don't have an account? <a onclick="toggleTabs()">Sign up</a>
+      </div>
+    </div>
+
+    <div id="signupTab" class="tab">
+      <h1>Sign Up</h1>
+      <form>
+        <input type="text" id="signupUsername" placeholder="Username" required>
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <input type="password" placeholder="Confirm Password" required>
+        <button type="submit">Sign Up</button>
+      </form>
+      <div class="switch-link">
+        Already have an account? <a onclick="toggleTabs()">Login</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleTabs() {
+      document.getElementById("loginTab").classList.toggle("active");
+      document.getElementById("signupTab").classList.toggle("active");
+    }
+
+    // Handle login form submission
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const correctUsername = "shannu_v";
+      const correctPassword = "123";
+      
+      const enteredUsername = document.getElementById("loginUsername").value;
+      const enteredPassword = document.getElementById("loginPassword").value;
+
+      if (enteredUsername === correctUsername && enteredPassword === correctPassword) {
+        window.location.href = "home.html"; // Navigate to home page
+      } else {
+        alert("Invalid username or password!");
+      }
+    });
+  </script>
+
+</body>
+</html>

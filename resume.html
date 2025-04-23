@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resume & Portfolio Builder</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f0f4f8;
+    }
+    header {
+      background-color: #003153;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    section {
+      padding: 20px;
+    }
+    .template-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .template-card {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      width: 250px;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+    .template-card:hover {
+      transform: scale(1.05);
+    }
+    .template-card h4 {
+      margin: 0;
+    }
+    .form-section, .preview-section {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+    }
+    .resume-preview {
+      background: white;
+      padding: 20px;
+      border: 1px solid #ccc;
+      width: 100%;
+      max-width: 500px;
+      min-height: 400px;
+    }
+    .btn {
+      background: #0074D9;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .portfolio-links a {
+      display: inline-block;
+      margin-right: 10px;
+    }
+    .level-templates {
+      margin-top: 30px;
+    }
+    ul li a {
+  color: #0074D9;
+  text-decoration: none;
+  font-weight: bold;
+}
+ul li a:hover {
+  text-decoration: underline;
+}
+
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Resume & Portfolio Builder</h1>
+  <p>Create your standout resume or explore templates!</p>
+</header>
+
+<section>
+  <h2>📌 Alumni Resume Templates</h2>
+  <div class="template-section" id="alumniTemplates"></div>
+</section>
+<section class="level-templates">
+  <h2>📚 Templates by Level</h2>
+  <div class="template-section">
+    <div class="template-card">
+      <h4>Beginner</h4>
+      <p>Simple layout, education-focused, ideal for 1st-year students.</p>
+      <a href="https://novoresume.com/resume-templates/student" target="_blank" class="btn">View Template</a>
+    </div>
+    <div class="template-card">
+      <h4>Moderate</h4>
+      <p>Includes academic projects, ideal for 2nd/3rd year.</p>
+      <a href="https://resumegenius.com/resume-templates" target="_blank" class="btn">View Template</a>
+    </div>
+    <div class="template-card">
+      <h4>Advanced</h4>
+      <p>Projects, internships & leadership roles highlighted.</p>
+      <a href="https://zety.com/resume-templates" target="_blank" class="btn">View Template</a>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <h2>📝 Build Your Resume</h2>
+  <div class="form-section">
+    <form id="resumeForm" style="flex:1;">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" id="name" />
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="text" id="email" />
+      </div>
+      <div class="form-group">
+        <label>Education</label>
+        <textarea id="education"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Skills</label>
+        <textarea id="skills"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Achievements</label>
+        <textarea id="achievements"></textarea>
+      </div>
+      <div class="form-group">
+        <label>GitHub / LinkedIn / Portfolio</label>
+        <input type="text" id="links" />
+      </div>
+      <button type="button" class="btn" onclick="generateResume()">Preview</button>
+      <button type="button" class="btn" onclick="downloadPDF()">Download as PDF</button>
+    </form>
+
+    <div class="preview-section" style="flex:1;">
+      <div class="resume-preview" id="resumePreview">
+        <h2>Your Resume Preview</h2>
+        <p>Fill the form to see live preview here.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section style="background:#f9f9f9; padding:30px; text-align:center;">
+  <h2>🛠 Suggested Resume Builder Platforms</h2>
+  <p>Here are some great platforms to create professional resumes:</p>
+  <ul style="list-style:none; padding:0; font-size: 1.1rem;">
+    <li><a href="https://resumeworded.com" target="_blank">🔗 Resume Worded</a></li>
+    <li><a href="https://enhancv.com" target="_blank">🔗 Enhancv</a></li>
+    <li><a href="https://novoresume.com" target="_blank">🔗 Novoresume</a></li>
+    <li><a href="https://zety.com" target="_blank">🔗 Zety</a></li>
+    <li><a href="https://canva.com/resumes/" target="_blank">🔗 Canva Resumes</a></li>
+  </ul>
+</section>
+
+
+<script>
+  // Sample alumni resumes (simulated)
+  const alumniData = [
+    { name: "Aarav Mehta", field: "AI/ML Engineer at TCS", url: "#" },
+    { name: "Priya Sharma", field: "Web Developer at Infosys", url: "#" },
+    { name: "Rohan Desai", field: "Data Analyst at Deloitte", url: "#" }
+  ];
+
+  function loadAlumniTemplates() {
+    const container = document.getElementById("alumniTemplates");
+    alumniData.forEach(a => {
+      const div = document.createElement("div");
+      div.className = "template-card";
+      div.innerHTML = `
+      <h4>${a.name}</h4>
+      <p>${a.field}</p>
+      <a href="${a.url}" class="btn">View</a>
+    `;
+      container.appendChild(div);
+    });
+  }
+
+  function generateResume() {
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const edu = document.getElementById("education").value;
+    const skills = document.getElementById("skills").value;
+    const ach = document.getElementById("achievements").value;
+    const links = document.getElementById("links").value;
+
+    const preview = `
+      <h2>${name}</h2>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Education:</strong><br>${edu}</p>
+      <p><strong>Skills:</strong><br>${skills}</p>
+      <p><strong>Achievements:</strong><br>${ach}</p>
+      <p><strong>Links:</strong><br>${links}</p>
+    `;
+
+    document.getElementById("resumePreview").innerHTML = preview;
+  }
+
+  function downloadPDF() {
+    const element = document.getElementById("resumePreview");
+    html2pdf().from(element).save("resume.pdf");
+  }
+
+  // Load on page
+  window.onload = loadAlumniTemplates;
+</script>
+
+</body>
+</html>

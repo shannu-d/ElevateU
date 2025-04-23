@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>StudentHub - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Global Styles */
+        .product-section {
+            padding: 40px 20px;
+            background-color: #f8f8f8;
+            text-align: center;
+        }
+
+        .product-section h2 {
+            margin-top: 15px;
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            justify-items: center;
+        }
+
+        .product-card {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 240px;
+            width: 100%;
+            height: 340px; /* Fix height to maintain squarish shape */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: left;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .product-card h3 {
+            font-size: 16px;
+            color: #333;
+            margin: 8px 0 6px;
+        }
+
+        .product-card .price {
+            font-size: 15px;
+            color: #7380ec;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-card button {
+            background-color: #7380ec;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            align-self: start;
+        }
+
+        .product-card button:hover {
+            background-color: #1128ff;
+        }
+
+        /* Fixed Header Style */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: white;
+        }
+
+        /* Dropdown button style */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: transparent;
+            border: none;
+            color: inherit;
+            font: inherit;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown .show {
+            display: block;
+        }
+
+ 
+
+        .buttons {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .prev, .next {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        /* Popular Courses Section */
+        .popular-courses {
+            background-color: #fff;
+            padding: 20px;
+            margin: 40px;
+            border-radius: 5px;
+        }
+
+        .popular-courses h2 {
+            color: #333;
+        }
+
+        .popular-courses ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .popular-courses ul li {
+            margin: 10px 0;
+            font-size: 18px;
+            color: #555;
+        }
+
+        @media (max-width: 600px) {
+            .popular-courses,
+            .slider {
+                padding: 15px;
+                margin: 15px;
+            }
+        }
+
+
+
+        /*search engine*/
+        .search-container {
+            background-color: #616cca;
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+            border-radius: 0 0 16px 16px;
+        }
+        
+        .search-container h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .search-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 700px;
+            margin: auto;
+            gap: 10px;
+        }
+        
+        .search-form input[type="text"] {
+            padding: 12px 20px;
+            width: 60%;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            outline: none;
+            background-color: white;
+            color: #333;
+            transition: 0.3s ease;
+        }
+        
+        .search-form input[type="text"]:focus {
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+        }
+        
+        .search-form button {
+            padding: 10px 24px;
+            background-color: white;
+            color: #616cca;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        
+        .search-form button:hover {
+            background-color: #505abd;
+            color: white;
+        }
+
+
+           /* Footer Styles */
+           .footer {
+            background-color: #616cca;
+            color: #ffffff;
+            padding: 10px 10px 10px;
+            width: 100%;
+            margin-top: 40px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: auto;
+        }
+        
+        .footer-logo {
+            flex: 1 1 250px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo h3 {
+            font-size: 24px;
+            color: #ffffff;
+            margin-top: 10px;
+        }
+        
+        .footer-logo h3 span {
+            color: #ea0a0a;
+        }
+        
+        .footer-logo p {
+            font-size: 14px;
+            margin-top: 8px;
+            color: antiquewhite;
+        }
+        
+        .footer-links,
+        .footer-contact {
+            flex: 1 1 200px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links h4,
+        .footer-contact h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-links ul li a {
+            text-decoration: none;
+            color: #ffffff;
+            transition: color 0.3s;
+        }
+        
+        .footer-links ul li a:hover {
+            color: #7380ec;
+        }
+        
+        .footer-contact p {
+            font-size: 14px;
+            color: #f8f8f8;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 14px;
+        }
+        
+    </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="logo" title="StudentHub">
+            <img src="./images/logo.png" alt="Logo">
+            <h2>Elevate<span class="danger">U</span></h2>
+        </div>
+        
+        <div class="navbar">
+            <a href="Home.html" class="active">
+                <span class="material-icons-sharp">home</span>
+                <h3>Home</h3>
+            </a>
+            
+            <a href="courses.html">
+                <span class="material-icons-sharp">menu_book</span>
+                <h3>Courses</h3>
+            </a>
+
+            <div class="dropdown">
+                <a href="javascript:void(0);" class="dropbtn" onclick="toggleDropdown()">
+                    <span class="material-icons-sharp">menu</span>
+                    <h3>StudentHub</h3>
+                </a>
+                <div class="dropdown-content" id="dropdownMenu">
+                    <a href="projects.html">
+                        <span class="material-icons-sharp">build</span>
+                        <h3>Projects</h3>
+                    </a>
+                    <a href="internships.html">
+                        <span class="material-icons-sharp">work</span>
+                        <h3>Internships</h3>
+                    </a>
+                    <a href="stationeries.html">
+                        <span class="material-icons-sharp">shopping_cart</span>
+                        <h3>Stationeries</h3>
+                    </a>
+                    <a href="resume.html">
+                        <span class="material-icons-sharp">assignment</span>
+                        <h3>Resume</h3>
+                    </a>
+                </div>
+            </div>
+
+            <a href="#" id="auth-link">
+                <span class="material-icons-sharp" id="auth-icon">login</span>
+                <h3 id="auth-text">Logout</h3>
+            </a>
+            
+            <a href="index.html" id="profile-link">
+                <span class="material-icons-sharp" id="profile-icon">person</span>
+                <H3>Profile</H3>
+            </a>
+        </div>
+
+        <div id="profile-btn">
+            <span class="material-icons-sharp">person</span>
+        </div>
+    </header>
+
+    <div class="search-container">
+        <h2>Search , Learn , Grow</h2>
+        <form class="search-form" action="#" method="get">
+            <input type="text" placeholder="Search for courses, projects, internships..." name="q">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    
+
+
+    <section class="product-section">
+        <h2>latest Courses</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="/images/image2.jpeg" alt="Course 1">
+                <h3>Python for Beginners</h3>
+                <p class="price">Free</p>
+                <button>Enroll Now</button>
+            </div>
+            <div class="product-card">
+                <img src="images/front.png" alt="Course 2">
+                <h3>Frontend Development</h3>
+                <p class="price">₹499</p>
+                <button>Enroll Now</button>
+            </div>
+            <div class="product-card">
+                <img src="images/ml.jpg" alt="Course 3">
+                <h3>Machine Learning Basics</h3>
+                <p class="price">₹999</p>
+                <button>Enroll Now</button>
+            </div>
+            <div class="product-card">
+                <img src="images/aiml.webp" alt="Course 3">
+                <h3>AIML</h3>
+                <p class="price">₹999</p>
+                <button>Enroll Now</button>
+            </div>
+            <div class="product-card">
+                <img src="images/back.jpg" alt="Course 3">
+                <h3>Backend Development</h3>
+                <p class="price">₹999</p>
+                <button>Enroll Now</button>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="product-section">
+        <h2>Recommended Courses</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="images/image2.jpeg" alt="Course 1">
+                <h3>Python for Beginners</h3>
+                <p class="price">Free</p>
+                <button>Enroll Now</button>
+            </div>
+            <div class="product-card">
+                <img src="images/front.png" alt="Course 2">
+                <h3>Frontend Development</h3>
+                <p class="price">₹499</p>
+                <button>Enroll Now</button>
+            </div>
+            <div class="product-card">
+                <img src="images/ml.jpg" alt="Course 3">
+                <h3>Machine Learning Basics</h3>
+                <p class="price">₹999</p>
+                <button>Enroll Now</button>
+            </div>
+            <div class="product-card">
+                <img src="images/aiml.webp" alt="Course 3">
+                <h3>AIML</h3>
+                <p class="price">₹999</p>
+                <button>Enroll Now</button>
+            </div>
+            <div class="product-card">
+                <img src="images/cyber.webp" alt="Course 3">
+                <h3>Cyber Security</h3>
+                <p class="price">₹999</p>
+                <button>Enroll Now</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="product-section">
+        <h2>Popular Courses</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="images/image2.jpeg" alt="Course 1">
+                <h3>Python for Beginners</h3>
+                <p class="price">Free</p>
+                <button>Enroll Now</button>
+            </div>
+            <div class="product-card">
+                <img src="images/front.png" alt="Course 2">
+                <h3>Frontend Development</h3>
+                <p class="price">₹499</p>
+                <button>Enroll Now</button>
+            </div>
+            <div class="product-card">
+                <img src="images/ml.jpg" alt="Course 3">
+                <h3>Machine Learning Basics</h3>
+                <p class="price">₹999</p>
+                <button>Enroll Now</button>
+            </div>
+            <div class="product-card">
+                <img src="images/back.jpg" alt="Course 3">
+                <h3>Backend DEvelopment</h3>
+                <p class="price">₹999</p>
+                <button>Enroll Now</button>
+            </div>
+            <div class="product-card">
+                <img src="images/aiml.webp" alt="Course 3">
+                <h3>AIML</h3>
+                <p class="price">₹999</p>
+                <button>Enroll Now</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <h3>Student<span>Hub</span></h3>
+                <p>Empowering Students. Enabling Success.</p>
+            </div>
+    
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="internships.html">Internships</a></li>
+                    <li><a href="stationeries.html">Stationeries</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-contact">
+                <h4>Contact</h4>
+                <p>Email: support@studenthub.com</p>
+                <p>Phone: +91 12345 67890</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 StudentHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const isLoggedIn = false;
+
+        const authLink = document.getElementById("auth-link");
+        const authIcon = document.getElementById("auth-icon");
+        const authText = document.getElementById("auth-text");
+        const profileLink = document.getElementById("profile-link");
+
+        if (isLoggedIn) {
+            authLink.href = "#logout";
+            authIcon.innerText = "logout";
+            authText.innerText = "Logout";
+            profileLink.href = "profile.html";
+        } else {
+            authLink.href = "login.html";
+            authIcon.innerText = "login";
+            authText.innerText = "Login / Register";
+        }
+
+        function toggleDropdown() {
+            const dropdownMenu = document.getElementById("dropdownMenu");
+            dropdownMenu.classList.toggle("show");
+        }
+
+        let slideIndex = 0;
+
+        function moveSlide(step) {
+            const slides = document.querySelectorAll(".slide");
+            slideIndex = (slideIndex + step + slides.length) % slides.length;
+            document.getElementById("slider-container").style.transform = `translateX(-${slideIndex * 100}%)`;
+        }
+
+        setInterval(() => moveSlide(1), 5000);
+    </script>
+
+</body>
+</html>

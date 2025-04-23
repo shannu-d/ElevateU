@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Google Meet / Interaction</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      padding: 2rem;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #3b3b98;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    section {
+      background: white;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+    button {
+      background: #3b3b98;
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    button:hover {
+      background: #2e2e80;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    iframe {
+      width: 100%;
+      height: 300px;
+      margin-top: 1rem;
+      border-radius: 8px;
+      border: none;
+    }
+    .chat-box {
+      background: #f1f1f1;
+      padding: 1rem;
+      height: 200px;
+      overflow-y: auto;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+    }
+    .chat-box div {
+      margin-bottom: 8px;
+    }
+    .chat-input {
+      display: flex;
+      gap: 1rem;
+    }
+    .feedback {
+      margin-top: 1rem;
+    }
+    ul {
+      padding-left: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🎥 Virtual Collaboration Hub</h1>
+
+<div class="container">
+  <!-- Meeting Room Section -->
+  <section>
+    <h2>Create / Join a Meeting</h2>
+    <p>Room Code:</p>
+    <input type="text" id="roomCode" value="rjva-rpay-icjf" readonly />
+    <button onclick="generateCode()">Generate New Code</button>
+    <button onclick="copyCode()">Copy Room Code</button>
+    <br><br>
+    <button>Join Room</button>
+    <button>Create Meeting</button>
+    <iframe src="https://meet.google.com/" title="Simulated Google Meet"></iframe>
+  </section>
+
+  <!-- Schedule Meeting -->
+  <section>
+    <h2>📅 Schedule a Meeting</h2>
+    <label>Topic:</label>
+    <input type="text" placeholder="e.g., Final Year Project Discussion"/>
+    <label>Date:</label>
+    <input type="date" />
+    <label>Time:</label>
+    <input type="time" />
+    <label>Agenda:</label>
+    <textarea placeholder="Write meeting agenda..."></textarea>
+    <button>Schedule</button>
+    <br><br>
+    <h3>📌 Upcoming Meetings</h3>
+    <ul>
+      <li>🗓 Apr 25 - Research Collab (rjva-rpay-icjf)</li>
+      <li>🗓 Apr 28 - Hackathon Strategy (xpta-qwek-lkdo)</li>
+    </ul>
+  </section>
+</div>
+
+<!-- Chat + Feedback Section -->
+<div class="container" style="grid-template-columns: 2fr 1fr;">
+  <!-- Chat -->
+  <section>
+    <h2>💬 Group Chat</h2>
+    <div class="chat-box" id="chatBox"></div>
+    <div class="chat-input">
+      <input type="text" id="chatMsg" placeholder="Type a message..."/>
+      <button onclick="sendChat()">Send</button>
+    </div>
+  </section>
+
+  <!-- Feedback -->
+  <section class="feedback">
+    <h2>⭐ Meeting Feedback</h2>
+    <label>Rate the meeting:</label>
+    <select>
+      <option>⭐</option>
+      <option>⭐⭐</option>
+      <option>⭐⭐⭐</option>
+      <option>⭐⭐⭐⭐</option>
+      <option>⭐⭐⭐⭐⭐</option>
+    </select>
+    <label>Notes:</label>
+    <textarea placeholder="Any thoughts or takeaways?"></textarea>
+    <button>Submit Feedback</button>
+  </section>
+</div>
+<!-- Add inside your existing interaction.html -->
+<!-- Notes / Notepad Section -->
+<section>
+  <h2>📝 Collaborative Notes</h2>
+  <label for="noteTitle">Title:</label>
+  <input type="text" id="noteTitle" placeholder="Note title..." />
+
+  <label>Tags (e.g., CSE, Math, Lab):</label>
+  <input type="text" id="noteTags" placeholder="Separate tags with commas" />
+
+  <label>Markdown Content:</label>
+  <textarea id="noteContent" rows="6" placeholder="Write using *markdown*"></textarea>
+
+  <label>Attach image/file (simulate):</label>
+  <input type="file" id="noteFile" accept="image/*,.pdf,.txt" onchange="previewFile()" />
+  <div id="filePreview" style="margin: 1rem 0;"></div>
+
+  <label><input type="checkbox" id="pinNote" /> 📌 Pin this note</label>
+
+  <br>
+  <button onclick="saveNote()">Save Note</button>
+  <button onclick="setReminder()">Set Reminder</button>
+
+  <h3 style="margin-top: 1.5rem;">📚 Saved Notes</h3>
+  <div id="notesDisplay"></div>
+</section>
+
+<script>
+  let notes = JSON.parse(localStorage.getItem("notes") || "[]");
+
+  function previewFile() {
+    const fileInput = document.getElementById("noteFile");
+    const file = fileInput.files[0];
+    const preview = document.getElementById("filePreview");
+
+    if (file && file.type.startsWith("image/")) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        preview.innerHTML = <img src="${reader.result}" style="max-width:100%;height:auto;border:1px solid #ccc;padding:4px;" />;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      preview.innerHTML = <p><b>File uploaded:</b> ${file.name}</p>;
+    }
+  }
+
+  function saveNote() {
+    const title = document.getElementById("noteTitle").value.trim();
+    const content = document.getElementById("noteContent").value.trim();
+    const tags = document.getElementById("noteTags").value.trim().split(',');
+    const pin = document.getElementById("pinNote").checked;
+    if (!title || !content) return alert("Please fill in title and content!");
+
+    const note = {
+      title,
+      content,
+      tags,
+      pinned: pin,
+      timestamp: new Date().toLocaleString()
+    };
+
+    notes.push(note);
+    localStorage.setItem("notes", JSON.stringify(notes));
+    displayNotes();
+    document.getElementById("noteTitle").value = '';
+    document.getElementById("noteContent").value = '';
+    document.getElementById("noteTags").value = '';
+    document.getElementById("filePreview").innerHTML = '';
+  }
+
+  function displayNotes() {
+    const container = document.getElementById("notesDisplay");
+    container.innerHTML = '';
+
+    const pinned = notes.filter(n => n.pinned);
+    const others = notes.filter(n => !n.pinned);
+
+    const allNotes = [...pinned, ...others];
+    allNotes.forEach(note => {
+      const div = document.createElement("div");
+      div.style.border = "1px solid #ccc";
+      div.style.padding = "1rem";
+      div.style.marginBottom = "1rem";
+      div.style.borderLeft = note.pinned ? "6px solid gold" : "none";
+      div.innerHTML = `
+        <h4>${note.title} ${note.pinned ? "📌" : ""}</h4>
+        <p><em>${note.tags.join(', ')}</em></p>
+        <p>${note.content.replace(/\\(.?)\\*/g, '<strong>$1</strong>')}</p>
+        <small>🕒 ${note.timestamp}</small>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  function setReminder() {
+    const reminderTime = prompt("Set reminder in seconds (e.g., 10):");
+    if (reminderTime) {
+      setTimeout(() => {
+        alert("📢 Reminder: Review your pinned study note!");
+      }, parseInt(reminderTime) * 1000);
+    }
+  }
+
+  window.onload = displayNotes;
+</script>

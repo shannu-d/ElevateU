@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StudentHub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-in-up { animation: fadeInUp 1s ease-out forwards; }
+    .animate-fade-in-down { animation: fadeInDown 1s ease-out forwards; }
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-white via-blue-50 to-blue-100 text-gray-800 font-sans min-h-screen flex flex-col justify-center items-center px-6">
+
+  <!-- Logo Circle -->
+  <div class="bg-blue-600 rounded-full w-32 h-32 flex items-center justify-center text-white text-5xl font-extrabold shadow-2xl animate-fade-in-down">
+    SH
+  </div>
+
+  <!-- Title -->
+  <h1 class="text-5xl md:text-6xl font-black mt-6 text-center animate-fade-in-up delay-100">
+    Welcome to <span class="text-blue-600">ElevateU</span>
+  </h1>
+
+  <!-- Subtitle -->
+  <p class="text-lg md:text-xl text-gray-600 mt-4 text-center max-w-2xl animate-fade-in-up delay-200">
+    Your one-stop platform for academic success, peer collaboration, and tailored student resources.
+  </p>
+
+  <!-- Get Started Button -->
+  <a href="login.html" class="mt-8 px-10 py-4 bg-blue-600 text-white rounded-full text-lg font-semibold shadow-md hover:bg-blue-700 hover:shadow-xl transition duration-300 ease-in-out animate-fade-in-up delay-300">
+    Get Started
+  </a>
+
+  <!-- Footer Tagline -->
+  <footer class="mt-12 text-sm text-gray-500 text-center animate-fade-in-up delay-400">
+    Empowering students, one click at a time.
+  </footer>
+
+</body>
+</html>

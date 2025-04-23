@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 0;
+      transition: background 0.3s ease;
+    }
+    header {
+      background-color: #3b5998;
+      color: white;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .container {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+    h2 {
+      color: #2e2e2e;
+    }
+    .form-section, .filters, .projects, .widgets {
+      background: white;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.05);
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0 1rem 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      background: #3b5998;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #2e4a8b;
+    }
+    .project-card {
+      border: 1px solid #ddd;
+      padding: 1.2rem;
+      border-radius: 10px;
+      margin-bottom: 1.2rem;
+      background: #fefefe;
+    }
+    .badges {
+      margin-top: 0.5rem;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      margin: 0.2rem;
+    }
+    .badge.idea { background: #ffe082; }
+    .badge.inprogress { background: #81d4fa; }
+    .badge.completed { background: #aed581; }
+    .actions i {
+      margin-right: 12px;
+      cursor: pointer;
+      color: #555;
+      transition: transform 0.2s;
+    }
+    .actions i:hover {
+      transform: scale(1.2);
+      color: #3b5998;
+    }
+    .filters select {
+      margin-right: 1rem;
+    }
+    .widgets {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    .widget {
+      padding: 1rem;
+      background: #eef5ff;
+      border-radius: 8px;
+    }
+    .announcement {
+      background: #fff8e1;
+      padding: 1rem;
+      border-left: 5px solid #ffca28;
+      margin-bottom: 2rem;
+      border-radius: 6px;
+    }
+    .theme-toggle {
+      float: right;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🚀 Projects Hub</h1>
+    <p>Showcase your work, find collaborators, and grow your skills</p>
+  </header>
+
+  <div class="container">
+
+    <div class="announcement">
+      📢 <strong>Announcement:</strong> Submit your innovative projects by <b>May 10</b> to be eligible for the Project Expo 2025!
+    </div>
+
+    <div class="form-section">
+      <h2>📤 Post Your Project</h2>
+      <input type="text" placeholder="Project Title" />
+      <textarea placeholder="Short Description"></textarea>
+      <input type="text" placeholder="Tech Stack (e.g., React, Node.js)" />
+      <select>
+        <option disabled selected>Status</option>
+        <option>Idea</option>
+        <option>In Progress</option>
+        <option>Completed</option>
+      </select>
+      <textarea placeholder="Doubts / Questions (Optional)"></textarea>
+      <label><input type="checkbox" /> Looking for collaborators</label><br><br>
+      <button onclick="alert('Project submitted!')">Submit</button>
+    </div>
+
+    <div class="filters">
+      <h2>🔍 Filters</h2>
+      <select><option>Domain</option><option>Web</option><option>AI</option><option>IoT</option></select>
+      <select><option>Tech Stack</option><option>React</option><option>Python</option><option>Java</option></select>
+      <select><option>Year</option><option>1st Year</option><option>2nd Year</option><option>Final Year</option></select>
+    </div>
+
+    <div class="projects">
+      <h2>📘 Student Projects</h2>
+
+      <div class="project-card">
+        <h3>Smart Health Monitoring System 💡</h3>
+        <p><strong>Owner:</strong> Sanjana Narni</p>
+        <p><strong>Description:</strong> A real-time system to monitor patient vitals using IoT.</p>
+        <p><strong>Tech Stack:</strong> Arduino, NodeMCU, Firebase</p>
+        <div class="badges">
+          <span class="badge idea">💡 Idea</span>
+          <span class="badge">💻 IoT</span>
+          <span class="badge">🔥 Trending</span>
+        </div>
+        <div class="actions">
+          <i class="fas fa-thumbs-up" title="Upvote"></i>
+          <i class="fas fa-bookmark" title="Bookmark"></i>
+          <i class="fas fa-comments" title="Comment"></i>
+          <i class="fas fa-download" title="Download Summary"></i>
+          <i class="fas fa-envelope" title="Contact Owner"></i>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="widgets">
+      <div class="widget">
+        🤖 <strong>AI Suggestions</strong><br/>
+        Try building a chatbot using Dialogflow and React!
+      </div>
+      <div class="widget">
+        🏆 <strong>Top Project</strong><br/>
+        Smart Waste Segregator by Arjun Rao (120+ upvotes)
+      </div>
+      <div class="widget">
+        📄 <strong>Upload Docs</strong><br/>
+        <button onclick="alert('Uploading README...')">Upload README</button>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
