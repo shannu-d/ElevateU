@@ -1,195 +1,555 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Projects Page</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f0f4f8;
-      margin: 0;
-      padding: 0;
-      transition: background 0.3s ease;
-    }
-    header {
-      background-color: #3b5998;
-      color: white;
-      padding: 1.5rem 2rem;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
-    .container {
-      padding: 2rem;
-      max-width: 1200px;
-      margin: auto;
-    }
-    h2 {
-      color: #2e2e2e;
-    }
-    .form-section, .filters, .projects, .widgets {
-      background: white;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.05);
-    }
-    input, textarea, select {
-      width: 100%;
-      padding: 0.8rem;
-      margin: 0.5rem 0 1rem 0;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-    button {
-      background: #3b5998;
-      color: white;
-      border: none;
-      padding: 0.8rem 1.5rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    button:hover {
-      background: #2e4a8b;
-    }
-    .project-card {
-      border: 1px solid #ddd;
-      padding: 1.2rem;
-      border-radius: 10px;
-      margin-bottom: 1.2rem;
-      background: #fefefe;
-    }
-    .badges {
-      margin-top: 0.5rem;
-    }
-    .badge {
-      display: inline-block;
-      padding: 0.4rem 0.8rem;
-      border-radius: 12px;
-      font-size: 0.8rem;
-      margin: 0.2rem;
-    }
-    .badge.idea { background: #ffe082; }
-    .badge.inprogress { background: #81d4fa; }
-    .badge.completed { background: #aed581; }
-    .actions i {
-      margin-right: 12px;
-      cursor: pointer;
-      color: #555;
-      transition: transform 0.2s;
-    }
-    .actions i:hover {
-      transform: scale(1.2);
-      color: #3b5998;
-    }
-    .filters select {
-      margin-right: 1rem;
-    }
-    .widgets {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-    }
-    .widget {
-      padding: 1rem;
-      background: #eef5ff;
-      border-radius: 8px;
-    }
-    .announcement {
-      background: #fff8e1;
-      padding: 1rem;
-      border-left: 5px solid #ffca28;
-      margin-bottom: 2rem;
-      border-radius: 6px;
-    }
-    .theme-toggle {
-      float: right;
-      cursor: pointer;
-      font-size: 1.2rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <style>
+        header {
+            position: fixed;
+            width: 100vw;
+            z-index: 1000;
+            background-color: var(--color-background);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 3rem;
+            color: var(--color-info);
+        }
+        
+        header,
+        header .navbar{
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 3rem;
+            color: var(--color-info);
+        }
+        header .navbar a{
+            display: flex;
+            margin-left: 2rem;
+            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            height: 3.7rem;
+            transition: all 300ms ease;
+            padding: 0 2rem;
+        }
+        header .navbar a:hover {
+            padding-top: 1.5rem;
+        }
+        header .navbar a.active{
+            background: var(--color-light);
+            color: var(--color-primary);
+        }
+        header .navbar a.active::before{
+            content: "";
+            background-color: var(--color-primary);
+            position: absolute;
+            height: 5px;
+            width: 100%;
+            left: 0;top: 0;
+        }
+        
+        header .logo {
+            display: flex;
+            gap: .8rem;
+            margin-right: auto;
+            align-items: center;
+        }
+        
+        header .logo img {
+            width: 2rem;
+            height: 2rem;
+        }
+        
+        header .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 3rem;
+        }
+        
+        header .navbar a {
+            display: flex;
+            margin-left: 2rem;
+            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            height: 3.7rem;
+            transition: all 300ms ease;
+            padding: 0 2rem;
+        }
+        
+        header .navbar a:hover {
+            padding-top: 1.5rem;
+        }
+        
+        header .navbar a.active {
+            background: var(--color-light);
+            color: var(--color-primary);
+        }
+        
+        header .navbar a.active::before {
+            content: "";
+            background-color: var(--color-primary);
+            position: absolute;
+            height: 5px;
+            width: 100%;
+            left: 0;
+            top: 0;
+        }
+        
+        header #profile-btn {
+            display: none;
+            font-size: 2rem;
+            margin: .5rem 2rem 0 0;
+            cursor: pointer;
+        }
+        
+        /* Dropdown inside navbar */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--color-white);
+            box-shadow: var(--box-shadow);
+            border-radius: var(--border-radius-2);
+            overflow: hidden;
+            flex-direction: column;
+            z-index: 1001;
+        }
+        
+        .dropdown-content a {
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--color-dark);
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: var(--color-light);
+            color: var(--color-primary);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: flex;
+        }
+
+
+
+
+
+        .container {
+          padding: 1rem;
+          max-width: 1200px;
+          margin: auto;
+          display: block;
+        }
+        h2 {
+          color: #2e2e2e;
+        }
+        .form-section, .filters, .projects, .widgets {
+          background: white;
+          padding: 1.5rem;
+          margin-bottom: 1.5rem;
+          border-radius: 10px;
+          box-shadow: 0 0 15px rgba(0,0,0,0.05);
+        }
+        input, textarea, select {
+          width: 100%;
+          padding: 0.8rem;
+          margin: 0.5rem 0 1rem 0;
+          border: 1px solid #ccc;
+          border-radius: 6px;
+        }
+        button {
+          background: #3b5998;
+          color: white;
+          border: none;
+          padding: 0.8rem 1.5rem;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background 0.3s;
+        }
+        button:hover {
+          background: #2e4a8b;
+        }
+        .project-card {
+          border: 1px solid #ddd;
+          padding: 1.2rem;
+          border-radius: 10px;
+          margin-bottom: 1.2rem;
+          background: #fefefe;
+        }
+        .badges {
+          margin-top: 0.5rem;
+        }
+        .badge {
+          display: inline-block;
+          padding: 0.4rem 0.8rem;
+          border-radius: 12px;
+          font-size: 0.8rem;
+          margin: 0.2rem;
+        }
+        .badge.idea { background: #ffe082; }
+        .badge.inprogress { background: #81d4fa; }
+        .badge.completed { background: #aed581; }
+        .actions i {
+          margin-right: 12px;
+          cursor: pointer;
+          color: #555;
+          transition: transform 0.2s;
+        }
+        .actions i:hover {
+          transform: scale(1.2);
+          color: #3b5998;
+        }
+        .filters select {
+          margin-right: 1rem;
+        }
+        .widgets {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 1rem;
+        }
+        .widget {
+          padding: 1rem;
+          background: #eef5ff;
+          border-radius: 8px;
+        }
+        .announcement {
+          background: #fff8e1;
+          padding: 1rem;
+          border-left: 5px solid #ffca28;
+          margin-bottom: 2rem;
+          border-radius: 6px;
+        }
+
+        .spacer {
+          height: 60px;
+        }
+        
+
+        /* Footer Styles */
+        .footer {
+          background-color: #616cca;
+          color: #ffffff;
+          padding: 10px 10px 10px;
+          width: 100%;
+          margin-top: 40px;
+          font-family: 'Segoe UI', sans-serif;
+      }
+      
+      .footer-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          max-width: 1200px;
+          margin: auto;
+      }
+      
+      .footer-logo {
+          flex: 1 1 250px;
+          margin-bottom: 20px;
+      }
+      
+      .footer-logo h3 {
+          font-size: 24px;
+          color: #ffffff;
+          margin-top: 10px;
+      }
+      
+      .footer-logo h3 span {
+          color: #ea0a0a;
+      }
+      
+      .footer-logo p {
+          font-size: 14px;
+          margin-top: 8px;
+          color: antiquewhite;
+      }
+      
+      .footer-links,
+      .footer-contact {
+          flex: 1 1 200px;
+          margin-bottom: 20px;
+      }
+      
+      .footer-links h4,
+      .footer-contact h4 {
+          font-size: 18px;
+          margin-bottom: 10px;
+          color: #ffffff;
+      }
+      
+      .footer-links ul {
+          list-style: none;
+          padding: 0;
+      }
+      
+      .footer-links ul li {
+          margin-bottom: 8px;
+      }
+      
+      .footer-links ul li a {
+          text-decoration: none;
+          color: #ffffff;
+          transition: color 0.3s;
+      }
+      
+      .footer-links ul li a:hover {
+          color: #7380ec;
+      }
+      
+      .footer-contact p {
+          font-size: 14px;
+          color: #f8f8f8;
+      }
+      
+      .footer-bottom {
+          text-align: center;
+          padding-top: 20px;
+          border-top: 1px solid rgba(255, 255, 255, 0.2);
+          font-size: 14px;
+      }
+
+      /* Footer end */
+    </style>
 </head>
 <body>
-
-  <header>
-    <h1>🚀 Projects Hub</h1>
-    <p>Showcase your work, find collaborators, and grow your skills</p>
-  </header>
-
-  <div class="container">
-
-    <div class="announcement">
-      📢 <strong>Announcement:</strong> Submit your innovative projects by <b>May 10</b> to be eligible for the Project Expo 2025!
-    </div>
-
-    <div class="form-section">
-      <h2>📤 Post Your Project</h2>
-      <input type="text" placeholder="Project Title" />
-      <textarea placeholder="Short Description"></textarea>
-      <input type="text" placeholder="Tech Stack (e.g., React, Node.js)" />
-      <select>
-        <option disabled selected>Status</option>
-        <option>Idea</option>
-        <option>In Progress</option>
-        <option>Completed</option>
-      </select>
-      <textarea placeholder="Doubts / Questions (Optional)"></textarea>
-      <label><input type="checkbox" /> Looking for collaborators</label><br><br>
-      <button onclick="alert('Project submitted!')">Submit</button>
-    </div>
-
-    <div class="filters">
-      <h2>🔍 Filters</h2>
-      <select><option>Domain</option><option>Web</option><option>AI</option><option>IoT</option></select>
-      <select><option>Tech Stack</option><option>React</option><option>Python</option><option>Java</option></select>
-      <select><option>Year</option><option>1st Year</option><option>2nd Year</option><option>Final Year</option></select>
-    </div>
-
-    <div class="projects">
-      <h2>📘 Student Projects</h2>
-
-      <div class="project-card">
-        <h3>Smart Health Monitoring System 💡</h3>
-        <p><strong>Owner:</strong> Sanjana Narni</p>
-        <p><strong>Description:</strong> A real-time system to monitor patient vitals using IoT.</p>
-        <p><strong>Tech Stack:</strong> Arduino, NodeMCU, Firebase</p>
-        <div class="badges">
-          <span class="badge idea">💡 Idea</span>
-          <span class="badge">💻 IoT</span>
-          <span class="badge">🔥 Trending</span>
+    <header>
+        <div class="logo" title="StudentHub">
+            <img src="./images/logo.png" alt="Logo">
+            <h2>Elevate<span class="danger">U</span></h2>
         </div>
-        <div class="actions">
-          <i class="fas fa-thumbs-up" title="Upvote"></i>
-          <i class="fas fa-bookmark" title="Bookmark"></i>
-          <i class="fas fa-comments" title="Comment"></i>
-          <i class="fas fa-download" title="Download Summary"></i>
-          <i class="fas fa-envelope" title="Contact Owner"></i>
+        
+        <div class="navbar">
+            <a href="Home.html" class="active">
+                <span class="material-icons-sharp">home</span>
+                <h3>Home</h3>
+            </a>
+            
+            <a href="Courses.html">
+                <span class="material-icons-sharp">menu_book</span>
+                <h3>Courses</h3>
+            </a>
+
+            <div class="dropdown">
+                <a href="javascript:void(0);" class="dropbtn" onclick="toggleDropdown()">
+                    <span class="material-icons-sharp">menu</span>
+                    <h3>StudentHub</h3>
+                </a>
+                <div class="dropdown-content" id="dropdownMenu">
+                    <a href="projects.html">
+                        <span class="material-icons-sharp">build</span>
+                        <h3>Projects</h3>
+                    </a>
+                    <a href="internships.html">
+                        <span class="material-icons-sharp">work</span>
+                        <h3>Internships</h3>
+                    </a>
+                    <a href="stationeries.html">
+                        <span class="material-icons-sharp">shopping_cart</span>
+                        <h3>Stationeries</h3>
+                    </a>
+                    <a href="resume.html">
+                        <span class="material-icons-sharp">assignment</span>
+                        <h3>Resume</h3>
+                    </a>
+                    <a href="meet.html">
+                        <span class="material-icons-sharp">event</span>
+                        <h3>meets</h3>
+                    </a>
+                </div>
+            </div>
+
+            <a href="landingpage.html" id="auth-link">
+                <span class="material-icons-sharp" id="auth-icon">login</span>
+                <h3 id="auth-text">logout</h3>
+            </a>
+            
+            <a href="index.html" id="profile-link">
+                <span class="material-icons-sharp" id="profile-icon">person</span>
+                <H3>Profile</H3>
+            </a>
+        </div>
+
+        <div id="profile-btn">
+            <span class="material-icons-sharp">person</span>
+        </div>
+    </header>
+
+
+    <div class="container">
+      <div class="spacer"></div>
+  
+      <div class="announcement">
+        📢 <strong>Announcement:</strong> Submit your innovative projects by <b>May 10</b> to be eligible for the Project Expo 2025!
+      </div>
+  
+      <div class="projects">
+        <h2>📘 Student Projects</h2>
+  
+        <div class="project-card">
+          <h3>Smart Health Monitoring System 💡</h3>
+          <p><strong>Owner:</strong> Sanjana Narni</p>
+          <p><strong>Description:</strong> A real-time system to monitor patient vitals using IoT.</p>
+          <p><strong>Tech Stack:</strong> Arduino, NodeMCU, Firebase</p>
+          <div class="badges">
+            <span class="badge idea">💡 Idea</span>
+            <span class="badge">💻 IoT</span>
+            <span class="badge">🔥 Trending</span>
+          </div>
+          <div class="actions">
+            <i class="fas fa-thumbs-up" title="Upvote"></i>
+            <i class="fas fa-bookmark" title="Bookmark"></i>
+            <i class="fas fa-comments" title="Comment"></i>
+            <i class="fas fa-download" title="Download Summary"></i>
+            <i class="fas fa-envelope" title="Contact Owner"></i>
+          </div>
+        </div>
+  
+      </div>  <div class="projects">
+        <h2>📘 Student Projects</h2>
+  
+        <div class="project-card">
+          <h3>Smart Health Monitoring System 💡</h3>
+          <p><strong>Owner:</strong> Sanjana Narni</p>
+          <p><strong>Description:</strong> A real-time system to monitor patient vitals using IoT.</p>
+          <p><strong>Tech Stack:</strong> Arduino, NodeMCU, Firebase</p>
+          <div class="badges">
+            <span class="badge idea">💡 Idea</span>
+            <span class="badge">💻 IoT</span>
+            <span class="badge">🔥 Trending</span>
+          </div>
+          <div class="actions">
+            <i class="fas fa-thumbs-up" title="Upvote"></i>
+            <i class="fas fa-bookmark" title="Bookmark"></i>
+            <i class="fas fa-comments" title="Comment"></i>
+            <i class="fas fa-download" title="Download Summary"></i>
+            <i class="fas fa-envelope" title="Contact Owner"></i>
+          </div>
+        </div>
+  
+      </div>  <div class="projects">
+        <h2>📘 Student Projects</h2>
+  
+        <div class="project-card">
+          <h3>Smart Health Monitoring System 💡</h3>
+          <p><strong>Owner:</strong> Sanjana Narni</p>
+          <p><strong>Description:</strong> A real-time system to monitor patient vitals using IoT.</p>
+          <p><strong>Tech Stack:</strong> Arduino, NodeMCU, Firebase</p>
+          <div class="badges">
+            <span class="badge idea">💡 Idea</span>
+            <span class="badge">💻 IoT</span>
+            <span class="badge">🔥 Trending</span>
+          </div>
+          <div class="actions">
+            <i class="fas fa-thumbs-up" title="Upvote"></i>
+            <i class="fas fa-bookmark" title="Bookmark"></i>
+            <i class="fas fa-comments" title="Comment"></i>
+            <i class="fas fa-download" title="Download Summary"></i>
+            <i class="fas fa-envelope" title="Contact Owner"></i>
+          </div>
+        </div>
+  
+      </div>
+
+      <div class="form-section">
+        <h2>📤 Post Your Project</h2>
+        <input type="text" placeholder="Project Title" />
+        <textarea placeholder="Short Description"></textarea>
+        <input type="text" placeholder="Tech Stack (e.g., React, Node.js)" />
+        <select>
+          <option disabled selected>Status</option>
+          <option>Idea</option>
+          <option>In Progress</option>
+          <option>Completed</option>
+        </select>
+        <textarea placeholder="Doubts / Questions (Optional)"></textarea>
+        <label><input type="checkbox" /> Looking for collaborators</label><br><br>
+        <button onclick="alert('Project submitted!')">Submit</button>
+      </div>
+  
+      <div class="filters">
+        <h2>🔍 Filters</h2>
+        <select><option>Domain</option><option>Web</option><option>AI</option><option>IoT</option></select>
+        <select><option>Tech Stack</option><option>React</option><option>Python</option><option>Java</option></select>
+        <select><option>Year</option><option>1st Year</option><option>2nd Year</option><option>Final Year</option></select>
+      </div>
+  
+    
+  
+      <div class="widgets">
+        <div class="widget">
+          🤖 <strong>AI Suggestions</strong><br/>
+          Try building a chatbot using Dialogflow and React!
+        </div>
+        <div class="widget">
+          🏆 <strong>Top Project</strong><br/>
+          Smart Waste Segregator by Arjun Rao (120+ upvotes)
+        </div>
+        <div class="widget">
+          📄 <strong>Upload Docs</strong><br/>
+          <button onclick="alert('Uploading README...')">Upload README</button>
         </div>
       </div>
-
+  
     </div>
+  
+    <footer class="footer">
+      <div class="footer-container">
+          <div class="footer-logo">
+              <h3>Student<span>Hub</span></h3>
+              <p>Empowering Students. Enabling Success.</p>
+          </div>
+  
+          <div class="footer-links">
+              <h4>Quick Links</h4>
+              <ul>
+                  <li><a href="courses.html">Courses</a></li>
+                  <li><a href="projects.html">Projects</a></li>
+                  <li><a href="internships.html">Internships</a></li>
+                  <li><a href="stationeries.html">Stationeries</a></li>
+              </ul>
+          </div>
+  
+          <div class="footer-contact">
+              <h4>Contact</h4>
+              <p>Email: support@studenthub.com</p>
+              <p>Phone: +91 12345 67890</p>
+          </div>
+      </div>
+      <div class="footer-bottom">
+          <p>© 2025 StudentHub. All rights reserved.</p>
+      </div>
+  </footer>
 
-    <div class="widgets">
-      <div class="widget">
-        🤖 <strong>AI Suggestions</strong><br/>
-        Try building a chatbot using Dialogflow and React!
-      </div>
-      <div class="widget">
-        🏆 <strong>Top Project</strong><br/>
-        Smart Waste Segregator by Arjun Rao (120+ upvotes)
-      </div>
-      <div class="widget">
-        📄 <strong>Upload Docs</strong><br/>
-        <button onclick="alert('Uploading README...')">Upload README</button>
-      </div>
-    </div>
 
-  </div>
+    <script>
+        const navLinks = document.querySelectorAll('.navbar a');
+    
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.forEach(link => link.classList.remove('active')); // Remove active class from all
+                this.classList.add('active'); // Add active class to clicked link
+            });
+        });
+    </script>
+    
 
 </body>
 </html>
