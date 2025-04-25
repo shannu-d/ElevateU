@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StudentHub Player</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --color-primary: #616cca;
+      --color-danger: #ff7782;
+      --color-success: #41f1b6;
+      --color-warning: #ffbb55;
+      --color-info: #7d8da1;
+      --color-dark: #1e293b;
+      --color-light: rgba(132, 139, 200, 0.18);
+      --color-background: #f8f8f8;
+      --color-card: #ffffff;
+
+      --card-radius: 0.75rem;
+      --input-radius: 0.5rem;
+      --shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--color-background);
+      color: #1e293b;
+    }
+
+    h1, h2, h3 {
+      font-weight: 600;
+    }
+
+    video {
+      border-radius: var(--card-radius);
+    }
+
+    .custom-card {
+      background-color: var(--color-card);
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow);
+    }
+
+    input, button {
+      border-radius: var(--input-radius);
+    }
+
+    input:focus {
+      outline: 2px solid var(--color-primary);
+      background-color: #e2e8f0;
+    }
+
+    button {
+      font-weight: 500;
+    }
+
+    .section {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Navbar -->
+  <header class="bg-white px-6 py-4 shadow-md flex items-center justify-between fixed top-0 left-0 w-full z-50">
+    <h1 class="text-xl font-bold text-[#616cca]">StudentHub Player</h1>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-20 section flex flex-col lg:flex-row gap-6">
+
+    <!-- Left: Video and Interactions -->
+    <div class="w-full lg:w-3/4 space-y-6">
+
+      <!-- Video Player -->
+      <div class="custom-card overflow-hidden">
+        <video id="videoPlayer" controls class="w-full aspect-video">
+          <source src="/images/hi.mp4" type="video/mp4"/>
+          Your browser does not support the video tag.
+        </video>
+        <div class="p-4 flex justify-between items-center">
+          <div>
+            <h2 class="text-xl font-semibold text-[#333]"></h2>
+            <p class="text-gray-500 text-sm">Samantha | Anirudh Ravichander</p>
+          </div>
+          <div class="space-x-3">
+            <button class="px-4 py-1 bg-[#616cca] text-white hover:bg-[#4b55aa]">Like</button>
+            <button class="px-4 py-1 bg-[#41f1b6] text-white hover:bg-[#31d6a1]">Download</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notes Section -->
+      <div class="custom-card p-4">
+        <h3 class="text-lg font-semibold mb-3 text-[#333]">Quick Notes</h3>
+        <form onsubmit="addNote(event)" class="flex flex-col sm:flex-row gap-3">
+          <input type="text" id="noteText" placeholder="Write a note..." class="flex-1 p-2 bg-gray-100 text-[#1e293b]"/>
+          <button type="submit" class="bg-[#616cca] text-white hover:bg-[#4b55aa] px-4 py-2">Save Note at <span id="currentTime">0:00</span></button>
+        </form>
+        <ul id="notesList" class="mt-4 space-y-2 text-sm text-gray-600"></ul>
+      </div>
+
+      <!-- Comments -->
+      <div class="custom-card p-4">
+        <h3 class="text-lg font-semibold mb-3 text-[#333]">Comments</h3>
+        <form onsubmit="addComment(event)" class="flex flex-col sm:flex-row gap-3">
+          <input type="text" id="commentInput" placeholder="Add a comment..." class="flex-1 p-2 bg-gray-100 text-[#1e293b]"/>
+          <button type="submit" class="bg-[#616cca] text-white hover:bg-[#4b55aa] px-4 py-2">Comment</button>
+        </form>
+        <ul id="commentsList" class="mt-4 space-y-2 text-sm text-gray-600"></ul>
+      </div>
+
+    </div>
+
+    <!-- Right: Playlist -->
+    <aside class="w-full lg:w-1/4 custom-card p-4 max-h-[650px] overflow-y-auto">
+      <h3 class="text-lg font-semibold mb-4 text-[#333]">Up Next</h3>
+      <ul class="space-y-3">
+        <li class="flex gap-3 items-start hover:bg-gray-100 p-2 rounded cursor-pointer">
+          <img src="https://i.ytimg.com/vi/1himtoWeAU8/hqdefault.jpg" class="w-16 h-10 rounded object-cover"/>
+          <div>
+            <p class="text-sm font-medium text-[#1e293b]">U Turn - Karma Theme</p>
+            <p class="text-xs text-gray-500">3:52</p>
+          </div>
+        </li>
+        <li class="flex gap-3 items-start hover:bg-gray-100 p-2 rounded cursor-pointer">
+          <img src="https://i.ytimg.com/vi/L_jWHffIx5E/hqdefault.jpg" class="w-16 h-10 rounded object-cover"/>
+          <div>
+            <p class="text-sm font-medium text-[#1e293b]">Another Sample Video</p>
+            <p class="text-xs text-gray-500">4:12</p>
+          </div>
+        </li>
+        <!-- Add more list items as needed -->
+      </ul>
+    </aside>
+
+  </main>
+  <script>
+    const videoPlayer = document.getElementById("videoPlayer");
+    const currentTimeDisplay = document.getElementById("currentTime");
+    const notesList = document.getElementById("notesList");
+    const commentsList = document.getElementById("commentsList");
+  
+    // Update current time every second
+    videoPlayer.addEventListener("timeupdate", () => {
+      const minutes = Math.floor(videoPlayer.currentTime / 60);
+      const seconds = Math.floor(videoPlayer.currentTime % 60).toString().padStart(2, '0');
+      currentTimeDisplay.textContent = `${minutes}:${seconds}`;
+    });
+  
+    function addNote(event) {
+      event.preventDefault();
+      const noteText = document.getElementById("noteText").value.trim();
+      if (!noteText) return;
+  
+      const timestamp = currentTimeDisplay.textContent;
+      const li = document.createElement("li");
+      li.innerHTML = `<strong>[${timestamp}]</strong> ${noteText}`;
+      notesList.appendChild(li);
+      document.getElementById("noteText").value = "";
+    }
+  
+    function addComment(event) {
+      event.preventDefault();
+      const commentInput = document.getElementById("commentInput").value.trim();
+      if (!commentInput) return;
+  
+      const li = document.createElement("li");
+      li.textContent = commentInput;
+      commentsList.appendChild(li);
+      document.getElementById("commentInput").value = "";
+    }
+  </script>
+  
+</body>
+</html>
